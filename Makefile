@@ -39,10 +39,11 @@ tests_run:	$(OBJ)
 		$(CC) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
 		./$(NAME)
 
-# Don't forget to create "cov" directory manually to use this command.
 # Open the generated file in Web Browser : file:///$PATH_TO_COV_FOLDER/cov/cov.html
 coverage:	tests_run
+		if [ ! -d "./cov" ]; then mkdir cov; fi
 		$(GCOVR) $(GCOVRFLAGS)
+		if [ -f "./cov/cov.html" ]; then xdg-open "./cov/cov.html"; fi
 
 clean:
 		rm -f $(OBJ)
